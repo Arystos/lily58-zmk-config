@@ -1,5 +1,12 @@
 /*
  * Lily58 ZMK Keymap
+ *
+ * Layer 0: Base (QWERTY)
+ * Layer 1: Lower (F-keys, symbols)
+ * Layer 2: Raise (Navigation)
+ * Layer 3: Adjust (BT, media)
+ * Layer 4: C++ (macros, coding shortcuts)
+ * Layer 5: Gaming (Fortnite/LoL optimized)
  */
 
 #include <behaviors.dtsi>
@@ -7,6 +14,45 @@
 #include <dt-bindings/zmk/keys.h>
 
 / {
+    macros {
+        // C++ macros
+        arrow: arrow {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings = <&kp MINUS &kp GT>;        // ->
+        };
+        scope: scope {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings = <&kp COLON &kp COLON>;     // ::
+        };
+        cpp_cout: cpp_cout {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings = <&kp S &kp T &kp D &scope &kp C &kp O &kp U &kp T &kp SPACE &kp LT &kp LT &kp SPACE>;  // std::cout <<
+        };
+        cpp_endl: cpp_endl {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings = <&kp S &kp T &kp D &scope &kp E &kp N &kp D &kp L>;  // std::endl
+        };
+        cpp_include: cpp_include {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings = <&kp HASH &kp I &kp N &kp C &kp L &kp U &kp D &kp E &kp SPACE>;  // #include
+        };
+    };
+
+    behaviors {
+        // Tap ESC, Hold LCTRL (great for coding)
+        esc_ctrl: esc_ctrl {
+            compatible = "zmk,behavior-mod-morph";
+            #binding-cells = <0>;
+            bindings = <&kp ESC>, <&kp ESC>;
+            mods = <0>;
+        };
+    };
+
     keymap {
         compatible = "zmk,keymap";
 
@@ -49,8 +95,30 @@
 &bt BT_CLR  &bt BT_SEL 0  &bt BT_SEL 1  &bt BT_SEL 2  &bt BT_SEL 3  &bt BT_SEL 4                    &trans  &trans        &trans      &trans        &trans  &trans
 &trans      &trans        &trans        &trans        &trans        &trans                          &trans  &kp C_VOL_DN  &kp C_MUTE  &kp C_VOL_UP  &trans  &trans
 &trans      &trans        &trans        &trans        &trans        &trans                          &trans  &kp C_PREV    &kp C_PP    &kp C_NEXT    &trans  &trans
-&trans      &trans        &trans        &trans        &trans        &trans        &trans    &trans  &trans  &trans        &trans      &trans        &trans  &trans
+&trans      &trans        &trans        &trans        &trans        &trans        &tog 5    &trans  &trans  &trans        &trans      &trans        &trans  &trans
                                         &trans        &trans        &trans        &trans    &trans  &trans  &trans        &trans
+            >;
+        };
+
+        cpp_layer {
+            display-name = "C++";
+            bindings = <
+&trans  &trans  &trans  &trans  &trans  &trans                      &trans      &trans     &trans    &trans     &trans     &trans
+&trans  &trans  &trans  &trans  &trans  &trans                      &cpp_cout   &kp LBRC   &kp RBRC  &kp LT     &kp GT     &cpp_include
+&trans  &trans  &scope  &trans  &trans  &trans                      &arrow      &kp LPAR   &kp RPAR  &kp LBKT   &kp RBKT   &kp SEMI
+&trans  &trans  &trans  &trans  &trans  &trans  &trans      &trans  &cpp_endl   &kp EQUAL  &kp PIPE  &kp AMPS   &kp BSLH   &trans
+                        &trans  &trans  &trans  &trans      &trans  &trans      &trans     &trans
+            >;
+        };
+
+        gaming_layer {
+            display-name = "Gaming";
+            bindings = <
+&kp ESC    &kp N1  &kp N2  &kp N3    &kp N4  &kp N5                         &kp N6  &kp N7  &kp N8  &kp N9  &kp N0  &kp BACKSPACE
+&kp TAB    &kp Q   &kp W   &kp E     &kp R   &kp T                          &kp Y   &kp U   &kp I   &kp O   &kp P   &kp MINUS
+&kp LCTRL  &kp A   &kp S   &kp D     &kp F   &kp G                          &kp H   &kp J   &kp K   &kp L   &trans  &trans
+&kp LSHFT  &kp Z   &kp X   &kp C     &kp V   &kp B   &kp N6       &kp N7    &kp N   &kp M   &trans  &trans  &trans  &trans
+                            &kp LALT  &kp F1  &kp F2  &kp SPACE    &kp RET   &tog 5  &trans  &trans
             >;
         };
     };
