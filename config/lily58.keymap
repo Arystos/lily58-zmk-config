@@ -16,26 +16,31 @@
 / {
     macros {
         // C++ macros
+
         arrow: arrow {
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
             bindings = <&kp MINUS &kp GT>;        // ->
         };
+
         scope: scope {
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
             bindings = <&kp COLON &kp COLON>;     // ::
         };
+
         cpp_cout: cpp_cout {
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
             bindings = <&kp S &kp T &kp D &scope &kp C &kp O &kp U &kp T &kp SPACE &kp LT &kp LT &kp SPACE>;  // std::cout <<
         };
+
         cpp_endl: cpp_endl {
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
             bindings = <&kp S &kp T &kp D &scope &kp E &kp N &kp D &kp L>;  // std::endl
         };
+
         cpp_include: cpp_include {
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
@@ -45,10 +50,12 @@
 
     behaviors {
         // Tap ESC, Hold LCTRL (great for coding)
+
         esc_ctrl: esc_ctrl {
             compatible = "zmk,behavior-mod-morph";
             #binding-cells = <0>;
             bindings = <&kp ESC>, <&kp ESC>;
+
             mods = <0>;
         };
     };
@@ -59,11 +66,11 @@
         default_layer {
             display-name = "Base";
             bindings = <
-&kp ESC    &kp N1  &kp N2  &kp N3    &kp N4    &kp N5                         &kp N6  &kp N7    &kp N8     &kp N9   &kp N0    &kp BACKSPACE
-&kp TAB    &kp Q   &kp W   &kp E     &kp R     &kp T                          &kp Y   &kp U     &kp I      &kp O    &kp P     &kp MINUS
-&kp LCTRL  &kp A   &kp S   &kp D     &kp F     &kp G                          &kp H   &kp J     &kp K      &kp L    &kp SEMI  &kp SQT
-&kp LSHFT  &kp Z   &kp X   &kp C     &kp V     &kp B   &kp LBKT     &kp RBKT  &kp N   &kp M     &kp COMMA  &kp DOT  &kp FSLH  &kp RSHFT
-                           &kp LALT  &kp LGUI  &mo 1   &kp SPACE    &kp RET   &mo 2   &kp BSPC  &kp RALT
+&kp ESC    &kp N1  &kp N2  &kp N3    &kp N4    &kp N5                         &kp N6  &kp N7  &kp N8     &kp N9   &kp N0    &kp BACKSPACE
+&kp TAB    &kp Q   &kp W   &kp E     &kp R     &kp T                          &kp Y   &kp U   &kp I      &kp O    &kp P     &kp MINUS
+&kp LCTRL  &kp A   &kp S   &kp D     &kp F     &kp G                          &kp H   &kp J   &kp K      &kp L    &kp SEMI  &kp SQT
+&kp LSHFT  &kp Z   &kp X   &kp C     &kp V     &kp B   &kp LBKT     &kp RBKT  &kp N   &kp M   &kp COMMA  &kp DOT  &kp FSLH  &kp RSHFT
+                           &kp LALT  &kp LGUI  &mo 1   &kp SPACE    &kp RET   &mo 2   &mo 4   &kp RALT
             >;
         };
 
@@ -103,22 +110,22 @@
         cpp_layer {
             display-name = "C++";
             bindings = <
-&trans  &trans  &trans  &trans  &trans  &trans                      &trans      &trans     &trans    &trans     &trans     &trans
-&trans  &trans  &trans  &trans  &trans  &trans                      &cpp_cout   &kp LBRC   &kp RBRC  &kp LT     &kp GT     &cpp_include
-&trans  &trans  &scope  &trans  &trans  &trans                      &arrow      &kp LPAR   &kp RPAR  &kp LBKT   &kp RBKT   &kp SEMI
-&trans  &trans  &trans  &trans  &trans  &trans  &trans      &trans  &cpp_endl   &kp EQUAL  &kp PIPE  &kp AMPS   &kp BSLH   &trans
-                        &trans  &trans  &trans  &trans      &trans  &trans      &trans     &trans
+&trans  &trans  &trans  &trans  &trans  &trans                    &trans     &trans     &trans    &trans    &trans    &trans
+&trans  &trans  &trans  &trans  &trans  &trans                    &cpp_cout  &kp LBRC   &kp RBRC  &kp LT    &kp GT    &cpp_include
+&trans  &trans  &scope  &trans  &trans  &trans                    &arrow     &kp LPAR   &kp RPAR  &kp LBKT  &kp RBKT  &kp SEMI
+&trans  &trans  &trans  &trans  &trans  &trans  &trans    &trans  &cpp_endl  &kp EQUAL  &kp PIPE  &kp AMPS  &kp BSLH  &trans
+                        &trans  &tog 5  &trans  &trans    &trans  &trans     &trans     &trans
             >;
         };
 
         gaming_layer {
             display-name = "Gaming";
             bindings = <
-&kp ESC    &kp N1  &kp N2  &kp N3    &kp N4  &kp N5                         &kp N6  &kp N7  &kp N8  &kp N9  &kp N0  &kp BACKSPACE
-&kp TAB    &kp Q   &kp W   &kp E     &kp R   &kp T                          &kp Y   &kp U   &kp I   &kp O   &kp P   &kp MINUS
-&kp LCTRL  &kp A   &kp S   &kp D     &kp F   &kp G                          &kp H   &kp J   &kp K   &kp L   &trans  &trans
-&kp LSHFT  &kp Z   &kp X   &kp C     &kp V   &kp B   &kp N6       &kp N7    &kp N   &kp M   &trans  &trans  &trans  &trans
-                            &kp LALT  &kp F1  &kp F2  &kp SPACE    &kp RET   &tog 5  &trans  &trans
+&kp ESC    &kp N1  &kp N2  &kp N3    &kp N4  &kp N5                        &kp N6  &kp N7  &kp N8  &kp N9  &kp N0  &kp BACKSPACE
+&kp TAB    &kp Q   &kp W   &kp E     &kp R   &kp T                         &kp Y   &kp U   &kp I   &kp O   &kp P   &kp MINUS
+&kp LCTRL  &kp A   &kp S   &kp D     &kp F   &kp G                         &kp H   &kp J   &kp K   &kp L   &trans  &trans
+&kp LSHFT  &kp Z   &kp X   &kp C     &kp V   &kp B   &kp N6       &kp N7   &kp N   &kp M   &trans  &trans  &trans  &trans
+                           &kp LALT  &kp F1  &kp F2  &kp SPACE    &kp RET  &tog 5  &trans  &trans
             >;
         };
     };
