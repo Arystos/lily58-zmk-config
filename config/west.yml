@@ -5,7 +5,10 @@ manifest:
   projects:
     - name: zmk
       remote: zmkfirmware
-      revision: main
+      # Pinned to a known main commit (2026-09-26) instead of tracking main, so
+      # upstream changes cannot break the build. Bump deliberately; keep it in
+      # sync with the workflow ref in .github/workflows/build.yml.
+      revision: 5b51501fead672c41b5cfb396f3dafe0894bf4e9
       import: app/west.yml
   self:
     path: config
